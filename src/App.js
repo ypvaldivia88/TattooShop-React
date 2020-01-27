@@ -1,23 +1,21 @@
 import React, { Component, Fragment } from 'react';
-import Menu from './componentes/menu/Menu';
-import Footer from './componentes/footer/Footer';
-import Artistas from './componentes/Artistas';
+import Menu from './componentes/comunes/Menu';
+import Footer from './componentes/comunes/Footer';
+import Portada from './componentes/comunes/Portada';
 
-class App extends Component {
+export default class App extends Component {
 
   render() {
     return (
       <Fragment>
         <Menu />
         <div className="container fluid">
-          <Artistas />
-
+          <Portada />
         </div>
+        <br /><br /><br />
         <Footer />
       </Fragment>
     );
   }
 
 }
-
-export default App;

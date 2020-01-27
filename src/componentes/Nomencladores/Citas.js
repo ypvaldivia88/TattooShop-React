@@ -1,75 +1,63 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 
-export default class Artistas extends Component {
+export default class Citas extends Component {
+    constructor(props) {
+        super(props)
 
-    state = {
-        artistas: [],
-        seleccionado: 0,
-        Nombre: ''
+        this.state = {
+            citas: [],
+            seleccionado: 0,
+            nombre: ''
+        }
     }
 
     componentDidMount() {
-        this.getArtistas();
+        this.getCitas();
     }
 
-    getArtistas = _ => {
-        axios.get('/artistas')
+    getCitas = _ => {
+        axios.get('/citas')
             .then(res => {
-                const artistas = res.data;
-                this.setState({ artistas });
+                this.setState({ citas: res.data });
             })
     }
 
-    handleChange = event => {
-        this.setState({ Nombre: event.target.value });
+    handleNombre = event => {
+        this.setState({ nombre: event.target.value });
     }
 
-    addArtista = event => {
+    addCita = event => {
         event.preventDefault();
-
-        const nombre = this.state.Nombre;
-
-        axios.post('/artistas', { nombre })
-            .then(res => {
-                console.log(res);
-                console.log(res.data);
-            })
+        const nombre = this.state.nombre;
+        axios.post('/citas', { nombre })
     }
 
-    updateArtista = id => {
-        axios.put('/artistas/:id', { id })
-            .then(res => {
-                console.log(res);
-                console.log(res.data);
-            })
+    updateCita = id => {
+        axios.put('/citas/:id', { id })
     }
 
-    deleteArtista = id => {
-        axios.delete('/artistas/:id', {
+    deleteCita = id => {
+        axios.delete('/citas/:id', {
             data: { id }
         })
-            .then(res => {
-                console.log(res);
-                console.log(res.data);
-            })
     }
 
     render() {
-        const { artistas } = this.state;
+        const { citas } = this.state;
         return (
             <Fragment>
-                <h1>Artistas</h1>
+                <h1>Citas</h1>
                 <div className="card">
                     <div className="card-header">
-                        <form className="form-inline float-right" onSubmit={this.addArtista}>
+                        <form className="form-inline float-right" onSubmit={this.addCita}>
                             <div className="form-group">
                                 <input
                                     type="text"
                                     className="form-control"
-                                    name="Nombre"
+                                    name="nombre"
                                     placeholder="Nombre"
-                                    onChange={this.handleChange} />
+                                    onChange={this.handleNombre} />
                             </div>
                             <button type="button" className="btn btn-info ml-2">
                                 <i className="fa fa-search"></i>
@@ -89,16 +77,16 @@ export default class Artistas extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {artistas.map(a =>
-                                    <tr>
+                                {citas.map(a =>
+                                    <tr key={a.id}>
                                         <Fragment>
                                             <td>{a.id}</td>
-                                            <td>{a.Nombre}</td>
+                                            <td>{a.nombre}</td>
                                             <td>
-                                                <button className="btn btn-warning btn-sm mr-1" onClick={this.updateArtista(a.id)}>
+                                                <button className="btn btn-warning btn-sm mr-1" onClick={this.updateCita(a.id)}>
                                                     <i className="fa fa-edit"></i>
                                                 </button>
-                                                <button className="btn btn-danger btn-sm" onClick={this.deleteArtista(a.id)}>
+                                                <button className="btn btn-danger btn-sm" onClick={this.deleteCita(a.id)}>
                                                     <i className="fa fa-eraser"></i>
                                                 </button>
                                             </td>
