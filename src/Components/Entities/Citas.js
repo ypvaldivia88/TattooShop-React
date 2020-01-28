@@ -72,21 +72,29 @@ export default class Citas extends Component {
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Nombre</th>
+                                    <th>Fecha</th>
+                                    <th>Depósito</th>
+                                    <th>Id Cliente</th>
+                                    <th>Id Tipo Trabajo</th>
+                                    <th>Id Artista</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {citas.map(a =>
-                                    <tr key={a.id}>
+                                {citas.map(c =>
+                                    <tr key={c.id}>
                                         <Fragment>
-                                            <td>{a.id}</td>
-                                            <td>{a.nombre}</td>
+                                            <td>{c.id}</td>
+                                            <td>{c.fecha}</td>
+                                            <td>{c.deposito}</td>
+                                            <td>{c.cliente_id}</td>
+                                            <td>{c.tipo_trabajo_id}</td>
+                                            <td>{c.artista_id}</td>
                                             <td>
-                                                <button className="btn btn-warning btn-sm mr-1" onClick={this.updateCita(a.id)}>
+                                                <button className="btn btn-warning btn-sm mr-1" onClick={this.updateCita(c.id)}>
                                                     <i className="fa fa-edit"></i>
                                                 </button>
-                                                <button className="btn btn-danger btn-sm" onClick={this.deleteCita(a.id)}>
+                                                <button className="btn btn-danger btn-sm" onClick={this.deleteCita(c.id)}>
                                                     <i className="fa fa-eraser"></i>
                                                 </button>
                                             </td>

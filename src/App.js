@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import Menu from './componentes/comunes/Menu';
-import Footer from './componentes/comunes/Footer';
-import Portada from './componentes/comunes/Portada';
+import Menu from './Components/Templates/Menu';
+import Footer from './Components/Templates/Footer';
+import Routes from './Routes';
 
 export default class App extends Component {
 
@@ -10,7 +10,7 @@ export default class App extends Component {
       <Fragment>
         <Menu />
         <div className="container fluid">
-          <Portada />
+          <Routes />
         </div>
         <br /><br /><br />
         <Footer />
