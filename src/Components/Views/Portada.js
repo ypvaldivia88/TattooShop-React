@@ -1,12 +1,12 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 
 export default class Portada extends Component {
 
   render() {
     return (
-      <Fragment>
-        Portada
-      </Fragment>
+      <div className="card">
+        Hello World!
+      </div>
     );
   }
 

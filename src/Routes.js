@@ -1,8 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Portada from './Components/Views/Portada';
-import Artistas from './Components/Entities/Artistas';
-import Citas from './Components/Entities/Citas';
+import Artistas from './Components/Views/Artistas';
+import Citas from './Components/Views/Citas';
 
 const Routes = () => {
     return (
