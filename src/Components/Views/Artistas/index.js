@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export default class Artistas extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            artistas: [],
-            nombre: ''
+            artistas: []
         }
     }
 
@@ -20,53 +20,41 @@ export default class Artistas extends Component {
             .then(res => {
                 this.setState({ artistas: res.data });
             })
+            .catch(console.log(console.error))
     }
 
-    handleNombre = event => {
-        this.setState({ nombre: event.target.value });
-    }
+    /*     deleteArtista = id => {
+            axios.delete(`/artistas/${id}`)
+                .then(this.getArtistas())
+                .catch(err => console.error(err))
+        } */
 
-    addArtista = _ => {
-        const { nombre } = this.state;
-        axios.post('/artistas', { nombre })
-            .then(this.getArtistas())
-            .catch(err => console.error(err))
-    }
-
-    updateArtista = id => {
-        axios.put('/artistas/:id', { id })
-        this.getArtistas();
-    }
-
-    deleteArtista = id => {
-        axios.delete(`/artistas/${id}`)
-            .then(this.getArtistas())
-            .catch(err => console.error(err))
+    tabRow() {
+        return this.state.artistas.map(function (o, i) {
+            return (
+                <tr key={i}>
+                    <td>{o.id}</td>
+                    <td>{o.nombre}</td>
+                    <td>
+                        <Link to={"/artistas/edit/" + o.id} className="btn btn-primary">Editar</Link>
+                        <button className="btn btn-danger btn-sm" onClick={this.deleteArtista(o.id)}>
+                            <i className="fa fa-eraser"></i>
+                        </button>
+                    </td>
+                </tr>
+            )
+        });
     }
 
     render() {
-        const { artistas } = this.state;
         return (
             <Fragment>
                 <h1>Artistas</h1>
                 <div className="card">
                     <div className="card-header">
-                        <form className="form-inline float-right" onSubmit={this.addArtista}>
-                            <div className="form-group">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    name="nombre"
-                                    placeholder="Nombre"
-                                    onChange={this.handleNombre} />
-                            </div>
-                            <button type="button" className="btn btn-info ml-2">
-                                <i className="fa fa-search"></i>
-                            </button>
-                            <button type="submit" className="btn btn-success ml-2">
-                                <i className="fa fa-plus"></i>
-                            </button>
-                        </form>
+                        <Link to="/artistas/create" className="btn btn-success ml-2 float-right">
+                            <i className="fa fa-plus"></i> Crear nuevo Artista
+                        </Link>
                     </div>
                     <div className="card-body">
                         <table className="table">
@@ -78,22 +66,7 @@ export default class Artistas extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {artistas.map(a =>
-                                    <tr key={a.id}>
-                                        <Fragment>
-                                            <td>{a.id}</td>
-                                            <td>{a.nombre}</td>
-                                            <td>
-                                                <button className="btn btn-warning btn-sm mr-1" onClick={this.updateArtista(a.id)}>
-                                                    <i className="fa fa-edit"></i>
-                                                </button>
-                                                <button className="btn btn-danger btn-sm" onClick={this.deleteArtista(a.id)}>
-                                                    <i className="fa fa-eraser"></i>
-                                                </button>
-                                            </td>
-                                        </Fragment>
-                                    </tr>
-                                )}
+                                {this.tabRow()}
                             </tbody>
                         </table>
                     </div>
